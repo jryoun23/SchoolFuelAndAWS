@@ -13,5 +13,9 @@
   - Create a new bucket object linked to whatever bucket you're going to be reading the csv data from. (the nice thing about lambda functions is that you can make it so when a new file is added to an s3 bucket, you can automatically run this process and have the dynamo table ingest it)
   - next we're going to create a response object via the bucket.get(), which returns us an object hierarchy of the s3 bucket described above.
   - to read this response object, we access the Body of the resonse, read(), decode using 'utf-8-sig' (depends on data type, but this will treat the BOM as its signiture instead of a string(this will depend on the csv filetype I assume)), and then splits each line of data (which are the items for us) into its own python list.
-  - what we're left with is a 
+  - what we're left with is a list called 'lines, which we will feed into our csv reader which will theen be iterated through minus thee first row (labels that we dont need)
+  - Then we can iterate through the csv read lines (list of lists after they're sent into the CSV reader) into their individual rows based on their index in that each value is at in the row. 
+  - Then, we can create and put these itms into the dynamoDB instance that we created earlier in the script.
+
+  *(Matt whent ahead and made a more robust version of this code that I need to remember to put in here)*
 

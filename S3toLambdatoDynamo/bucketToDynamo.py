@@ -20,13 +20,12 @@ def lambda_handler(event, context):
         response = obj.get()
         # read the contents of the file
         lines = response['Body'].read().decode('utf-8-sig').splitlines()
- 
         firstrecord=True
         csv_reader = csv.reader(lines, delimiter=',', quotechar='"')
         for row in csv_reader:
             if (firstrecord):
                 headers = row
-                for header in headers:
+                for _ in headers:
                     data.append([])
                 firstrecord=False
                 continue
